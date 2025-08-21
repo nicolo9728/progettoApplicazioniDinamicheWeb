@@ -5,6 +5,7 @@ import { createHandler } from 'graphql-http/lib/use/express';
 import { CredenzialiLogin, LoginController } from "./controllers/LoginController";
 import { container } from "tsyringe";
 import { buildSchema } from "graphql";
+import { gestisciRichiestaAsync } from "./infrastracture/graphql/ActionResult";
 
 const PORT = 5000
 
@@ -35,7 +36,7 @@ const schema = buildSchema(`
 
 const rootValue = {
     login: async ({credenziali}: {credenziali: CredenzialiLogin}) => 
-        await container.resolve(LoginController).login(credenziali),
+        gestisciRichiestaAsync(async ()=>await container.resolve(LoginController).login(credenziali)),
 
     hello: () => "wadwadwa"
 };

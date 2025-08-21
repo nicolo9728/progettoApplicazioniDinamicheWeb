@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe";
 import { SqlConnectionUser } from "./SqlConnectionUser";
-import { Utente } from "../models/Utente";
-import { Result } from "../../../common/Result"
+import { Utente } from "../../models/Utente";
+import { Result } from "../../../../common/Result"
 
 @injectable()
 export class UtenteRepository {

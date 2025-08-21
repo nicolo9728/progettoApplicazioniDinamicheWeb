@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe"
 import type { HttpEndpoint } from "./httpEndpoint"
 import type { Credenziali } from "../../../common/viewmodels/Credenziali"
-import { ResultMapper } from "../../../common/Result"
+import { ResultMapper } from "../../../common/ResultMapper"
 
 
 type TokenResponse = {

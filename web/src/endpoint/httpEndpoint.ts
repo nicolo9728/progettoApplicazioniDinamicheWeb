@@ -1,13 +1,13 @@
 import { injectable } from "tsyringe"
 import type { Result } from "../../../common/Result"
 
-type ErrorMessage = Readonly<
+export type ErrorMessage = Readonly<
     {
         message: string
     }
 >
 
-type ResponseType = Readonly<
+export type ResponseType = Readonly<
     {
         errors: ErrorMessage[],
         data: any
@@ -18,7 +18,7 @@ export class HttpEndpoint {
 
     private HOST = "http://localhost:5000/"
 
-    public async query<T>(url: string, query: string): Promise<Result<T, ErrorMessage[]>> {
+    public async query(url: string, query: string): Promise<Result<any, ErrorMessage[]>> {
         const ris = await (await fetch(`${this.HOST}${url}`, {
             method: "POST",
             headers: {
@@ -29,8 +29,7 @@ export class HttpEndpoint {
 
 
         return ris.errors.length > 0
-            ? { success: false, error: ris.errors as ErrorMessage[]}
-            : { success: true, value: ris.data as T }
-
+            ? { success: false, error: ris.data.errors as ErrorMessage[] }
+            : { success: true, value: ris.data }
     }
 }
