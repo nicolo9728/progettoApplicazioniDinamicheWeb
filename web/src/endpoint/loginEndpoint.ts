@@ -1,7 +1,8 @@
-import { injectable } from "tsyringe"
-import type { HttpEndpoint } from "./httpEndpoint"
-import type { Credenziali } from "../../../common/viewmodels/Credenziali"
+import { inject, injectable } from "tsyringe"
+import { ErrorMessage, HttpEndpoint } from "./httpEndpoint"
+import { Credenziali } from "../../../common/viewmodels/Credenziali"
 import { ResultMapper } from "../../../common/ResultMapper"
+import { Result } from "../../../common/Result"
 
 
 type TokenResponse = {
@@ -12,10 +13,15 @@ type TokenResponse = {
 @injectable()
 export class LoginEndpoint {
 
-    constructor(private httpEndpoint: HttpEndpoint) { }
+    constructor(@inject(HttpEndpoint) private httpEndpoint: HttpEndpoint) { }
+
+    private setToken(token: TokenResponse): Result<undefined, ErrorMessage[]>{
+        sessionStorage.setItem("token", token.token)
+        return {success: true, value: undefined}
+    }
 
     public async login(credenziali: Credenziali) {
-        return ResultMapper.from((await this.httpEndpoint.query<any>("graphql", `
+        return ResultMapper.from((await this.httpEndpoint.query("graphql", `
             mutation{
                 login(credenziali: {
                     username: "${credenziali.username}",
@@ -24,5 +30,7 @@ export class LoginEndpoint {
             }    
         `)))
         .map((v)=>v["login"] as TokenResponse)
+        .bind((t)=>this.setToken(t))
+        .result
     }
 }

@@ -2,7 +2,7 @@ import { Result } from "./Result"
 
 
 export class ResultMapper<T, E> {
-    private constructor(private result: Result<T, E>) { }
+    private constructor(public result: Result<T, E>) { }
 
     static from<T, E>(result: Result<T, E>) { return new ResultMapper(result) }
 

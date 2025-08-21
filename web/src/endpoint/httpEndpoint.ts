@@ -29,7 +29,7 @@ export class HttpEndpoint {
 
 
         return ris.errors.length > 0
-            ? { success: false, error: ris.data.errors as ErrorMessage[] }
+            ? { success: false, error: ris.errors as ErrorMessage[] }
             : { success: true, value: ris.data }
     }
 }

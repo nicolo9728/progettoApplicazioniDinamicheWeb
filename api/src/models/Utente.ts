@@ -4,7 +4,7 @@ import { Result } from "../../../common/Result";
 
 export class Utente{
     constructor(
-        public idCustomer: Readonly<number>,
+        public id: Readonly<number>,
         public username: Readonly<string>, 
         private password: Readonly<string>,
     ){}
