@@ -39,9 +39,9 @@ const rootValue = {
     login: async ({credenziali}: {credenziali: CredenzialiLogin}, req: Request) => 
         gestisciRichiestaAsync(async ()=>await container.resolve(LoginController).login(credenziali)),
         
-    hello: (_: any,  {req}: {req: Request}) => {
-        return gestisciRichiestaAutenticataAsync<string>(async (auth)=>({type: "Ok", data: `ciao ${auth.username}`}), req) 
-    }
+    hello: (_: any,  {req}: {req: Request}) => 
+        gestisciRichiestaAutenticataAsync<string>(async (auth)=>({type: "Ok", data: `ciao ${auth.username}`}), req) 
+    
 };
 
 app.all("/graphql", createHandler({ 
