@@ -22,7 +22,8 @@ export class HttpEndpoint {
         const ris = await (await fetch(`${this.HOST}${url}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token") ?? ""
             },
             body: JSON.stringify({ query })
         })).json() as ResponseType

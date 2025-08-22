@@ -1,11 +1,12 @@
 import "reflect-metadata"
-import express from "express"
+import express, { Request } from "express"
 import cors from "cors"
 import { createHandler } from 'graphql-http/lib/use/express';
 import { CredenzialiLogin, LoginController } from "./controllers/LoginController";
 import { container } from "tsyringe";
 import { buildSchema } from "graphql";
-import { gestisciRichiestaAsync } from "./infrastracture/graphql/ActionResult";
+import { gestisciRichiestaAsync, gestisciRichiestaAutenticataAsync } from "./infrastracture/graphql/ActionResult";
+
 
 const PORT = 5000
 
@@ -35,12 +36,18 @@ const schema = buildSchema(`
 
 
 const rootValue = {
-    login: async ({credenziali}: {credenziali: CredenzialiLogin}) => 
+    login: async ({credenziali}: {credenziali: CredenzialiLogin}, req: Request) => 
         gestisciRichiestaAsync(async ()=>await container.resolve(LoginController).login(credenziali)),
         
-    hello: () => "world"
+    hello: (_: any,  {req}: {req: Request}) => {
+        return gestisciRichiestaAutenticataAsync<string>(async (auth)=>({type: "Ok", data: `ciao ${auth.username}`}), req) 
+    }
 };
 
-app.all("/graphql", createHandler({ schema, rootValue }))
+app.all("/graphql", createHandler({ 
+    schema: schema, 
+    rootValue: rootValue,
+    context: (req, _)=>({ req })
+}))
 
 app.listen(PORT, () => console.log(`In ascolto sulla porta ${PORT}`))

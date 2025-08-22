@@ -1,5 +1,6 @@
 import { sign, verify } from "jsonwebtoken"
 import { Utente } from "../models/Utente"
+import { Result } from "../../../common/Result"
 
 export type JwtPayload = Readonly<{id: number, username: string}>
 export type Token = {token: string}
@@ -14,5 +15,17 @@ export const generateJwt = (utente: JwtPayload): Token =>
     })
 
 
-export const validateToken = (token: string) => 
-    verify(token, KEY) as JwtPayload
+export const validateToken = (token: string): Result<JwtPayload, string> => {
+    try{
+        return {
+            success: true,
+            value: verify(token, KEY) as JwtPayload
+        }
+    }
+    catch(e){
+        return {
+            success: false,
+            error: "Token non valido o scaduto"
+        }
+    }
+}
