@@ -21,6 +21,22 @@ const schema = buildSchema(`
 
     type Query{
         hello: String
+        films: Film[]
+    }
+
+    type Film{
+        titolo: String
+        anno: Int
+        rating: String
+        genere: String
+        lingua: String
+        costo: String
+    }
+    
+    type Filter{
+        orderColumn: string?
+        titolo: string?
+        categoria: string?
     }
     
     input Credenziali{
