@@ -9,18 +9,9 @@
 }
 
 .home-container header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
     grid-area: header;
 }
 
 .home-container .content-container {
     grid-area: content-container;
-    overflow: auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
 }

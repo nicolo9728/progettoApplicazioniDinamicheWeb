@@ -42,7 +42,7 @@ export const Login = () => {
             required
           />
         </div>
-        <button>Login</button>
+        <button><p>Login</p><img src='src/assets/login.png' alt='Login'/></button>
       </form>
     </div>
   );

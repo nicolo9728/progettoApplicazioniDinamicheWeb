@@ -1,24 +1,25 @@
-*{
+* {
     box-sizing: border-box;
     color: #FFFFFF;
     font-family: Arial;
 }
 
-body, html{
+body,
+html {
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     min-height: 100vh;
     background-color: #191225;
 }
 
-label *{
+label * {
     width: 100%;
 }
 
-input{
+input {
     background-color: #d9d9d925;
     border: none;
     font-size: 20px;
@@ -26,14 +27,15 @@ input{
     border-radius: 10px;
 }
 
-button{
+button {
     background-color: #05846b;
     border: none;
     font-size: 20px;
     padding: 15px 25px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
-label{
+label {
     font-size: 23px;
 }
