@@ -1,0 +1,75 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px 0 30px;
+    background-color: #2B203D;
+}
+
+.header-container .left-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+
+    .logo {
+        height: 90px;
+        width: 90px;
+    }
+
+    .nomeNegozio {
+        font-size: 32px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: lighter;
+    }
+}
+
+.header-container .right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .btn-storico {
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 40px;
+            width: 40px;
+        }
+    }
+
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .nomeUtente {
+            margin: 5px;
+            font-size: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: lighter;
+        }
+
+        .btn-logout {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+
+            background-color: transparent;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+
+            img {
+                height: 20px;
+                width: 20px;
+                rotate: 180deg;
+            }
+        }
+    }
+}
