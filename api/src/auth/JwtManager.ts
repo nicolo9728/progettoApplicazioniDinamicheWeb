@@ -8,7 +8,7 @@ const KEY = "awodajwaiodjoiedjieswfjewoifwjfiwer.e.fwefw0e9fiw40ef"
 
 export const generateJwt = (utente: JwtPayload): Token =>
     ({
-        token: sign(utente, KEY, {
+        token: sign({id: utente.id, username: utente.username}, KEY, {
             expiresIn: "10h"
         })
     })

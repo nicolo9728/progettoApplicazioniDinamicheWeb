@@ -37,8 +37,8 @@ const schema = buildSchema(`
 const rootValue = {
     login: async ({credenziali}: {credenziali: CredenzialiLogin}) => 
         gestisciRichiestaAsync(async ()=>await container.resolve(LoginController).login(credenziali)),
-
-    hello: () => "wadwadwa"
+        
+    hello: () => "world"
 };
 
 app.all("/graphql", createHandler({ schema, rootValue }))

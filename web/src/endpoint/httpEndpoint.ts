@@ -9,7 +9,7 @@ export type ErrorMessage = Readonly<
 
 export type ResponseType = Readonly<
     {
-        errors: ErrorMessage[],
+        errors: ErrorMessage[] | undefined,
         data: any
     }>
 
@@ -28,7 +28,7 @@ export class HttpEndpoint {
         })).json() as ResponseType
 
 
-        return ris.errors.length > 0
+        return ris.errors && ris.errors.length > 0
             ? { success: false, error: ris.errors as ErrorMessage[] }
             : { success: true, value: ris.data }
     }

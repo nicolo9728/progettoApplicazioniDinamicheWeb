@@ -1,27 +1,29 @@
-import type { FormEvent } from "react"
+
 import style from "./login.module.css"
-import { extractObjectFromForm, formSubmit } from "../../helpers/formHelpers"
+import { formSubmit } from "../../helpers/formHelpers"
 import { container } from "tsyringe"
 import { LoginEndpoint } from "../../endpoint/loginEndpoint"
 import type { Credenziali } from "../../../../common/viewmodels/Credenziali"
 import { ResultMapper } from "../../../../common/ResultMapper"
-import { HttpEndpoint } from "../../endpoint/httpEndpoint"
+import { useState } from "react"
+import { useNavigate } from "react-router"
 
 export const Login = () => {
-
-    const test = container.resolve(HttpEndpoint)
-    console.log(test)
     const loginEndpoint = container.resolve(LoginEndpoint)
+
+    const navigate = useNavigate()
+    const [errore, setErrore] = useState("")
 
     const eseguiLogin = async (arg: Credenziali) =>
         ResultMapper
             .from(await loginEndpoint.login(arg))
-            .match((token)=>console.log(token), (e)=>console.log(e[0].message))
+            .match((_)=>navigate("/"), (e)=>setErrore(e[0].message))
 
     return (
         <div className={style["login-container"]}>
             <form onSubmit={formSubmit(eseguiLogin)}>
                 <h1>Autenticazione</h1>
+                <p>{errore}</p>
                 <div className={style["input-container"]}>
                     <label htmlFor="username">Inserisci lo username: </label>
                     <input type="text" name="username" id="username" placeholder="Username" required/>

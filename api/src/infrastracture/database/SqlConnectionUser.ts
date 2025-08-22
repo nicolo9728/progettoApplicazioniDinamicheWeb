@@ -7,7 +7,7 @@ export class SqlConnectionUser extends SqlConnection{
     protected createConnection(): Pool {
         return new Pool({
             host: "localhost",
-            user: "postgres",
+            user: "nicolo9728",
             password: "1234",
             database: "rentalusers"
         })
