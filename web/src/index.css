@@ -39,3 +39,18 @@ button {
 label {
     font-size: 23px;
 }
+
+select {
+    color: #05846b;
+    border-color: #05846b;
+    border-radius: 5px;
+    border-width: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    width: 135px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: url(src/assets/down-arrow.png) no-repeat right;
+    background-size: 20px 20px;
+}

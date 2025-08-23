@@ -6,6 +6,7 @@
     grid-template-areas:
         "header"
         "content-container";
+    grid-template-rows: 120px 1fr;
 }
 
 .home-container header {
@@ -14,4 +15,36 @@
 
 .home-container .content-container {
     grid-area: content-container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .filters-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-top: 20px;
+
+        .search-container {
+            position: relative;
+
+            input {
+                padding-left: 35px;
+            }
+
+            img {
+                height: 18px;
+                width: 18px;
+                position: absolute;
+                align-self: center;
+                left: 10px;
+            }
+        }
+
+        p {
+            font-size: 20px;
+            color: #05846b;
+            cursor: pointer;
+        }
+    }
 }
