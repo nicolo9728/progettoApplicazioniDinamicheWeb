@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <div className={style["header-container"]}>
         <div className={style["left-section"]}>
-            <img src='src/assets/tape.png' className={style["logo"]} alt='Logo'/>
+            <img src='src/assets/tape.png' className={style["logo"]} alt='Immagine del logo'/>
             <h1 className={style["nomeNegozio"]}>DVD Rental</h1>
         </div>
         <div className={style["right-section"]}>

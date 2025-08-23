@@ -25,6 +25,10 @@
         gap: 20px;
         padding-top: 20px;
 
+        label {
+            display: none;
+        }
+
         .search-container {
             position: relative;
 
@@ -41,9 +45,10 @@
             }
         }
 
-        p {
+        h2 {
             font-size: 20px;
             color: #05846b;
+            font-weight: bold;
             cursor: pointer;
         }
     }
