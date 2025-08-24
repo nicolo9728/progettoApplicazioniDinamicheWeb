@@ -6,6 +6,9 @@ import { CredenzialiLogin, LoginController } from "./controllers/LoginController
 import { container } from "tsyringe";
 import { buildSchema } from "graphql";
 import { gestisciRichiestaAsync, gestisciRichiestaAutenticataAsync } from "./infrastracture/graphql/ActionResult";
+import { FilmController } from "./controllers/FilmController";
+import { QueryParameters } from "../../common/viewmodels/QueryParamenters";
+import { Film } from "./models/Film";
 
 
 const PORT = 5000
@@ -18,10 +21,26 @@ const schema = buildSchema(`
     type Token{
         token: String
     }
+    
+    input FilterParameter{
+        campo: String
+        valoreString: String
+        valoreInt: Int
+    }
+
+    input SortParameter{
+        campo: String
+        asc: Boolean
+    }
+
+    input QueryParameters{
+        where: [FilterParameter]
+        sortBy: SortParameter
+    }
 
     type Query{
         hello: String
-        films: Film[]
+        films(arg: QueryParameters): [Film]
     }
 
     type Film{
@@ -34,9 +53,9 @@ const schema = buildSchema(`
     }
     
     type Filter{
-        orderColumn: string?
-        titolo: string?
-        categoria: string?
+        orderColumn: String
+        titolo: String
+        categoria: String
     }
     
     input Credenziali{
@@ -56,8 +75,11 @@ const rootValue = {
         gestisciRichiestaAsync(async ()=>await container.resolve(LoginController).login(credenziali)),
         
     hello: (_: any,  {req}: {req: Request}) => 
-        gestisciRichiestaAutenticataAsync<string>(async (auth)=>({type: "Ok", data: `ciao ${auth.username}`}), req) 
+        gestisciRichiestaAutenticataAsync<string>(async (auth)=>({type: "Ok", data: `ciao ${auth.username}`}), req), 
     
+    films: ({arg}: {arg: QueryParameters}, {req}: {req: Request}) =>
+        gestisciRichiestaAutenticataAsync<Film[]>(
+            (_) => container.resolve(FilmController).getFilmsByQuery(arg), req)
 };
 
 app.all("/graphql", createHandler({ 
