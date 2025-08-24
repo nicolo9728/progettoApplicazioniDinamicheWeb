@@ -12,4 +12,5 @@ export type SortParameters = {
 export type QueryParameters = {
     where: FilterQuery[]
     sortBy: SortParameters
+    page: number | undefined
 }

@@ -9,6 +9,8 @@ import { gestisciRichiestaAsync, gestisciRichiestaAutenticataAsync } from "./inf
 import { FilmController } from "./controllers/FilmController";
 import { QueryParameters } from "../../common/viewmodels/QueryParamenters";
 import { Film } from "./models/Film";
+import { FilmViewModel } from "../../common/viewmodels/FilmViewModel";
+import { RisultatoPaginato } from "../../common/viewmodels/RisultatoPaginato";
 
 
 const PORT = 5000
@@ -36,19 +38,36 @@ const schema = buildSchema(`
     input QueryParameters{
         where: [FilterParameter]
         sortBy: SortParameter
+        page: Int
+    }
+    
+    type RisultatoPaginatoFilm{
+        paginaCorrente: Int
+        pagineTotali: Int
+        items: [Film]
     }
 
     type Query{
         hello: String
-        films(arg: QueryParameters): [Film]
+        films(arg: QueryParameters): RisultatoPaginatoFilm
+    }
+
+    type Genere{
+        id: Int
+        nome: String
+    }
+
+    type Lingua{
+        id: Int
+        nome: String
     }
 
     type Film{
         titolo: String
         anno: Int
         rating: String
-        genere: String
-        lingua: String
+        generi: [Genere],
+        lingua: Lingua
         costo: String
     }
     
@@ -78,7 +97,7 @@ const rootValue = {
         gestisciRichiestaAutenticataAsync<string>(async (auth)=>({type: "Ok", data: `ciao ${auth.username}`}), req), 
     
     films: ({arg}: {arg: QueryParameters}, {req}: {req: Request}) =>
-        gestisciRichiestaAutenticataAsync<Film[]>(
+        gestisciRichiestaAutenticataAsync<RisultatoPaginato<FilmViewModel>>(
             (_) => container.resolve(FilmController).getFilmsByQuery(arg), req)
 };
 
